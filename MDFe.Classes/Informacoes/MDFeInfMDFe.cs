@@ -30,10 +30,10 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+using MDFe.Utils.Flags;
 using System;
 using System.Collections.Generic;
 using System.Xml.Serialization;
-using MDFe.Utils.Flags;
 
 namespace MDFe.Classes.Informacoes
 {
@@ -120,5 +120,11 @@ namespace MDFe.Classes.Informacoes
 
         [XmlElement(ElementName = "infRespTec")]
         public infRespTec infRespTec { get; set; }
+
+        /// <summary>
+        /// Grupo de informações do Produto predominante da carga do MDF-e
+        /// </summary>
+        [XmlElement(ElementName = "prodPred")]
+        public MDFeProdPred ProdPred { get; set; }
     }
 }

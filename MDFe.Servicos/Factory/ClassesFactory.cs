@@ -30,17 +30,20 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+using DFe.Classes.Entidades;
 using MDFe.Classes.Extencoes;
+using MDFe.Classes.Informacoes;
 using MDFe.Classes.Informacoes.ConsultaNaoEncerrados;
 using MDFe.Classes.Informacoes.ConsultaProtocolo;
+using MDFe.Classes.Informacoes.Evento;
 using MDFe.Classes.Informacoes.Evento.CorpoEvento;
+using MDFe.Classes.Informacoes.Evento.CorpoEvento.EvPagtoOperMDFe;
 using MDFe.Classes.Informacoes.RetRecepcao;
 using MDFe.Classes.Informacoes.StatusServico;
 using MDFe.Classes.Servicos.Autorizacao;
 using MDFe.Utils.Configuracoes;
 using System;
 using System.Collections.Generic;
-using DFe.Classes.Entidades;
 using MDFeEletronico = MDFe.Classes.Informacoes.MDFe;
 
 namespace MDFe.Servicos.Factory
@@ -183,6 +186,20 @@ namespace MDFe.Servicos.Factory
                 TpAmb = MDFeConfiguracao.VersaoWebService.TipoAmbiente,
                 Versao = MDFeConfiguracao.VersaoWebService.VersaoLayout,
                 XServ = "STATUS"
+            };
+        }
+
+        public static MDFeEventoContainer CriaEvPagtoOperMDFe(string protocolo, MDFeEletronico mdfe, int qtdViagens, int nroViagem)
+        {
+            return new MDFeEvPagtoOperMDFe()
+            {
+                NProt = protocolo,
+                InfViagens = new MDFeInfViagensMDFe()
+                {
+                    QtdViagens = qtdViagens,
+                    NroViagem = nroViagem
+                },
+                InfPag = ((MDFeRodo)mdfe.InfMDFe.InfModal.Modal).infANTT.InfPag
             };
         }
     }

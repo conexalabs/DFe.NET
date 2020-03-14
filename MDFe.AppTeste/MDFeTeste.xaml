@@ -260,6 +260,7 @@
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
                     </Grid.RowDefinitions>
 
@@ -273,8 +274,9 @@
                     <Button Grid.Row="3" Grid.Column="1" Click="EventoEncerrarMDFe_Click">Evento Encerramento</Button>
                     <Button Grid.Row="4" Grid.Column="0" Click="EventoCancelarMDFe_Click">Evento Cancelar</Button>
                     <Button Grid.Row="4" Grid.Column="1" Click="EventoIncluirDFe_Click">Evento Incluir DFe</Button>
+                    <Button Grid.Row="5" Grid.Column="0" Click="EventoPagamentoOperacaoTransporte_Click">Evento Pagamento da Operação de Transporte</Button>
 
-                    <TabControl Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2">
+                    <TabControl Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2">
                         <TabItem Header="XmlEnvio">
                             <Grid Background="#FFE5E5E5">
                                 <WebBrowser x:Name="WebXmlEnvio" />

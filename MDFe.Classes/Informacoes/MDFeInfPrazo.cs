@@ -30,56 +30,48 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
-using MDFe.Classes.Contratos;
+using DFe.Classes;
 using System;
-using System.Collections.Generic;
 using System.Xml.Serialization;
 
 namespace MDFe.Classes.Informacoes
 {
     [Serializable]
-    public class MDFeRodo : MDFeModalContainer
+    public class MDFeInfPrazo
     {
-        [XmlElement(ElementName = "infANTT")]
-        public MDFeInfANTT infANTT { get; set; }
+        private decimal _vParcela;
 
         /// <summary>
-        /// 1 - Registro Nacional de Transportadores Rodoviários de Carga
+        /// Número da parcela
         /// </summary>
-        [XmlElement(ElementName = "RNTRC")]
-        public string RNTRC { get; set; }
+        [XmlElement(ElementName = "nParcela")]
+        public int nParcela { get; set; }
+
 
         /// <summary>
-        /// 1 - Código Identificador da Operação de Transporte
+        /// 2 - Data e hora de emissão do Manifesto 
         /// </summary>
-        [XmlElement(ElementName = "CIOT")]
-        public string CIOT { get; set; }
+        [XmlIgnore]
+        public DateTime dVenc { get; set; }
 
         /// <summary>
-        /// 1 - Dados do Veículo com a Tração
+        /// Proxy para dVenc
         /// </summary>
-        [XmlElement(ElementName = "veicTracao")]
-        public MDFeVeicTracao VeicTracao { get; set; }
+        [XmlElement(ElementName = "dVenc")]
+        public string ProxyDVenc
+        {
+            get { return dVenc.ToString("yyyy-MM-dd"); }
+            set { dVenc = DateTime.Parse(value); }
+        }
 
         /// <summary>
-        /// 1 - Dados dos reboques
+        /// Valor da parcela
         /// </summary>
-        [XmlElement(ElementName = "veicReboque")]
-        public List<MDFeVeicReboque> VeicReboque { get; set; }
-
-        /// <summary>
-        /// 1 - Informações de Vale Pedágio
-        /// </summary>
-        [XmlElement(ElementName = "valePed")]
-        public MDFeValePed ValePed { get; set; }
-
-        /// <summary>
-        /// 1 - Código de Agendamento no porto 
-        /// </summary>
-        [XmlElement(ElementName = "codAgPorto")]
-        public string CodAgPorto { get; set; }
-
-        [XmlElement(ElementName = "lacRodo")]
-        public List<MDFeLacre> lacRodo { get; set; }
+        [XmlElement(ElementName = "vParcela")]
+        public decimal vParcela
+        {
+            get { return _vParcela; }
+            set { _vParcela = value.Arredondar(2); }
+        }
     }
 }

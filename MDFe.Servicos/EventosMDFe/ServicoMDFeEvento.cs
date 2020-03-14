@@ -30,10 +30,10 @@
 /* http://www.zeusautomacao.com.br/                                             */
 /* Rua Comendador Francisco josé da Cunha, 111 - Itabaiana - SE - 49500-000     */
 /********************************************************************************/
+using DFe.Classes.Entidades;
 using MDFe.Classes.Informacoes.Evento.CorpoEvento;
 using MDFe.Classes.Retorno.MDFeEvento;
 using System.Collections.Generic;
-using DFe.Classes.Entidades;
 using MDFeEletronica = MDFe.Classes.Informacoes.MDFe;
 
 namespace MDFe.Servicos.EventosMDFe
@@ -78,6 +78,13 @@ namespace MDFe.Servicos.EventosMDFe
             var eventoCancelamento = new EventoCancelar();
 
             return eventoCancelamento.MDFeEventoCancelar(mdfe, sequenciaEvento, protocolo, justificativa);
+        }
+
+        public MDFeRetEventoMDFe MDFeEventoPagamentoOperacaoTransporte(MDFeEletronica mdfe, byte sequenciaEvento, string protocolo, int qtdViagens, int nroViagem)
+        {
+            var eventoPagamento = new EventoPagamentoOperacaoTransporte();
+
+            return eventoPagamento.MDFeEventoPagamentoOperacaoTransporte(mdfe, sequenciaEvento, protocolo, qtdViagens, nroViagem);
         }
     }
 }

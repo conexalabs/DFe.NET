@@ -781,14 +781,16 @@ namespace MDFe.AppTeste
 
             #region dados responsavel tecnico 
 
-            mdfe.InfMDFe.infRespTec = new infRespTec
-            {
-                CNPJ = "",
-                email = "",
-                fone = "",
-                xContato = ""
-            };
+            //mdfe.InfMDFe.infRespTec = new infRespTec
+            //{
+            //    CNPJ = "",
+            //    email = "",
+            //    fone = "",
+            //    xContato = ""
+            //};
             #endregion  
+
+            //mdfe.InfMDFe.ProdPred = new MDFeProdPred();
 
             var servicoRecepcao = new ServicoMDFeRecepcao();
 
@@ -1440,6 +1442,49 @@ namespace MDFe.AppTeste
                 }
             };
             var retorno = evento.MDFeEventoIncluirDFe(mdfe, 1, protocolo, codigoMunicipioCarregamento, nomeMunicipioCarregamento, informacoesDocumentos);
+            OnSucessoSync(new RetornoEEnvio(retorno));
+        }
+
+        public void EventoPagamentoOperacaoTransporte()
+        {
+            var config = new ConfiguracaoDao().BuscarConfiguracao();
+            CarregarConfiguracoesMDFe(config);
+
+            var evento = new ServicoMDFeEvento();
+            MDFeEletronico mdfe;
+            var caminhoXml = BuscarArquivoXmlMDFe();
+            try
+            {
+                var enviMDFe = MDFeEnviMDFe.LoadXmlArquivo(caminhoXml);
+                mdfe = enviMDFe.MDFe;
+            }
+            catch
+            {
+                try
+                {
+                    mdfe = MDFeEletronico.LoadXmlArquivo(caminhoXml);
+                }
+                catch
+                {
+                    var proc = FuncoesXml.ArquivoXmlParaClasse<MDFeProcMDFe>(caminhoXml);
+                    mdfe = proc.MDFe;
+                }
+            }
+            var protocolo = InputBoxTuche("Protocolo");
+            var qtdViagens = InputBoxTuche("Código do Município de Carregamento");
+            var nroViagem = InputBoxTuche("Nome do Município de Carregamento");
+            if (string.IsNullOrEmpty(qtdViagens))
+            {
+                MessageBoxTuche("A quantidade de viagens não pode ser vazia ou nula");
+                return;
+            }
+            if (string.IsNullOrEmpty(nroViagem))
+            {
+                MessageBoxTuche("Numero de referencia da viagem não pode ser vazio ou nulo");
+                return;
+            }
+
+            var retorno = evento.MDFeEventoPagamentoOperacaoTransporte(mdfe, 1, protocolo, int.Parse(qtdViagens), int.Parse(nroViagem));
             OnSucessoSync(new RetornoEEnvio(retorno));
         }
     }

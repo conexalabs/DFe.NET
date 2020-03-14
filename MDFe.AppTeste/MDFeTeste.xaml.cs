@@ -149,5 +149,10 @@ namespace MDFe.AppTeste
         {
             _model.EventoIncluirDFe();
         }
+
+        private void EventoPagamentoOperacaoTransporte_Click(object sender, RoutedEventArgs e)
+        {
+            _model.EventoPagamentoOperacaoTransporte();
+        }
     }
 }
